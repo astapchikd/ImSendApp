@@ -1,0 +1,8 @@
+module ImageSender {
+	
+	interface Sender {
+		typedef sequence<char> image;
+		boolean Send(in string filename, in long sizefname, in image im);
+		boolean shutdown();
+	};
+};
