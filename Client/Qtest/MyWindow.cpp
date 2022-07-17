@@ -22,7 +22,6 @@ void MyWindow::init() {
 void MyWindow::initActions() {
 	aExit = new QAction(QPixmap("Resources/Exit.png"), "Exit", this);
 	aOpen = new QAction(QPixmap("Resources/Open.png"), "Open", this);
-	aSave = new QAction(QPixmap("Resources/Save.png"), "Save", this);
 	aSaveAs = new QAction(QPixmap("Resources/SaveAs.png"), "SaveAs", this);
 	aClear = new QAction(QPixmap("Resources/Clear.png"), "Clear", this);
 	aRun = new QAction(QPixmap("Resources/Run.png"), "Run", this);
@@ -31,7 +30,6 @@ void MyWindow::initActions() {
 	//connect(aExit, SIGNAL(triggered()), qApp, SLOT(quit()));
 	connect(aOpen, SIGNAL(triggered()), SLOT(slotOpen()));
 	connect(aSaveAs, SIGNAL(triggered()), SLOT(slotSaveAs()));
-	connect(aSave, SIGNAL(triggered()), SLOT(slotSave()));
 	connect(aClear, SIGNAL(triggered()), SLOT(slotClear()));
 	connect(aAbout, SIGNAL(triggered()), SLOT(slotAbout()));
 	connect(aRun, SIGNAL(triggered()), SLOT(slotRun()));
@@ -44,7 +42,6 @@ void MyWindow::initMainMenu() {
 	mSend = new QMenu("Send",this);
 	mHelp = new QMenu("Help", this);
 	mFile->addAction(aOpen);
-	mFile->addAction(aSave);
 	mFile->addAction(aSaveAs);
 	mFile->addAction(aClear);
 	mFile->addAction(aExit);
@@ -59,7 +56,6 @@ void MyWindow::initToolBars() {
 	toolbar = new QToolBar(this);
 	toolbar->addAction(aOpen);
 	toolbar->addSeparator();
-	toolbar->addAction(aSave);
 	toolbar->addAction(aSaveAs);
 	toolbar->addAction(aClear);
 	toolbar->addAction(aRun);
@@ -137,10 +133,6 @@ void MyWindow::slotSaveAs() {
 	filename = QFileDialog::getSaveFileName();
 	if (filename.isEmpty() || filename.isNull()) return;
 	ImLabel->pixmap()->save(filename);
-}
-
-void MyWindow::slotSave() {
-
 }
 
 void MyWindow::slotRun() {

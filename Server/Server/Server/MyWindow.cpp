@@ -21,14 +21,12 @@ void MyWindow::init() {
 }
 
 void MyWindow::initActions() {
-	aExit = new QAction(QPixmap("Resources/Exit.png"), "Exit", this);
 	aSave = new QAction(QPixmap("Resources/Save.png"), "Save", this);
 	aSaveAs = new QAction(QPixmap("Resources/SaveAs.png"), "SaveAs", this);
 	aClear = new QAction(QPixmap("Resources/Clear.png"), "Clear", this);
 	aRun = new QAction(QPixmap("Resources/Run.png"), "Run", this);
 	aAbout = new QAction(QPixmap("Resources/Font.png"), "About", this);
 
-	connect(aExit, SIGNAL(triggered()), qApp, SLOT(quit()));
 	connect(aSaveAs, SIGNAL(triggered()), SLOT(slotSaveAs()));
 	connect(aSave, SIGNAL(triggered()), SLOT(slotSave()));
 	connect(aClear, SIGNAL(triggered()), SLOT(slotClear()));
@@ -45,7 +43,6 @@ void MyWindow::initMainMenu() {
 	mFile->addAction(aSave);
 	mFile->addAction(aSaveAs);
 	mFile->addAction(aClear);
-	mFile->addAction(aExit);
 	mSend->addAction(aRun);
 	mHelp->addAction(aAbout);
 	menuBar()->addMenu(mFile);
@@ -158,3 +155,4 @@ void MyWindow::slotAbout() {
 void MyWindow::textChanged(const QString& str) {
 	console->appendPlainText(str);
 }
+

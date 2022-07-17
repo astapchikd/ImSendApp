@@ -31,19 +31,19 @@ ImageSenderImpl::~ImageSenderImpl()
 
 OmniThread::OmniThread(int argc, char** argv, Editor* editor , QString* filename , QLabel* image, QObject* parent) : QThread(parent), _argc(argc), _argv(argv), _editor(editor), _filename(filename), _image(image)
 {
-
 }
 
 OmniThread::~OmniThread() {
+	orb->destroy();
+	this->wait();
 	qDebug() << "OmniThread is over\n";
 }
 
 void OmniThread::run() {
 	qDebug() << "running run Server " << currentThread() << "\n";
 	ImageSenderImpl* ImSeI = nullptr;
-	CORBA::ORB_var orb;
 	try {
-		CORBA::ORB_var orb = CORBA::ORB_init(_argc, _argv);
+		orb = CORBA::ORB_init(_argc, _argv);
 		CORBA::Object_var obj = orb->resolve_initial_references("RootPOA");
 		PortableServer::POA_var poa = PortableServer::POA::_narrow(obj);
 		ImSeI = new ImageSenderImpl(_editor, _filename, _image, &orb);
@@ -61,18 +61,5 @@ void OmniThread::run() {
 	catch (const CORBA::Exception& e) {
 		QString str = QString("error: ") + QString(e._name()) + QString('\n');
 		emit textChanged(str);
-	}
-
-	if (!CORBA::is_nil(orb)) {
-		try {
-			orb->destroy();
-			QString str = QString("Ending CORBA...\n");
-			emit textChanged(str);
-		}
-		catch (const CORBA::Exception& e)
-		{
-			QString str = QString("error: orb->destroy() failed:") + QString(e._name()) + QString('\n');
-			emit textChanged(str);
-		}
 	}
 }

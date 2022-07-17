@@ -49,10 +49,15 @@ void OmniThread::ShutdownServer() {
 		return;
 	}
 	try {
-		manager->shutdown();
+		manager->shutdown(); //COMM_FAILURE
+		emit textChanged("OK: Server is shutdowned!\n");
 	}
 	catch (CORBA::TRANSIENT&) {
 		QString str = QString("warning: nothing to disconnect!\n");
+		emit textChanged(str);
+	}
+	catch (CORBA::COMM_FAILURE&) {
+		QString str = QString("warning: server is already disconnected!\n");
 		emit textChanged(str);
 	}
 	qDebug()<<"server is shutdown!\n";

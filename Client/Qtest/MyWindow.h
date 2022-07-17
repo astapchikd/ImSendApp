@@ -33,7 +33,6 @@ public slots:
 	void slotSaveAs();
 	void slotClear();
 	void slotRun();
-	void slotSave();
 	void slotAbout();
 	void textChanged(const QString&);
 
@@ -48,7 +47,6 @@ private:
 
 	QPointer<QAction> aAbout;
 	QPointer<QAction> aOpen;			
-	QPointer<QAction> aSave;
 	QPointer<QAction> aSaveAs;
 	QPointer<QAction> aExit;			
 	QPointer<QAction> aClear;
@@ -65,8 +63,6 @@ private:
 
 	QPointer<Editor> console;
 
-
-	//QPointer<QByteArray> ba;
 	std::unique_ptr<QByteArray> ba;
 
 	QPointer <OmniThread> thread;

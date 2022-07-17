@@ -33,6 +33,7 @@ protected:
 	void run();
 	int _argc;
 	char** _argv;
+	CORBA::ORB_var orb;
 	Editor* _editor;
 	QString* _filename;
 	QLabel* _image;
