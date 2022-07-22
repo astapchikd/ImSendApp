@@ -34,7 +34,8 @@ OmniThread::OmniThread(int argc, char** argv, Editor* editor , QString* filename
 }
 
 OmniThread::~OmniThread() {
-	orb->destroy();
+	if (!CORBA::is_nil(orb))
+		orb->destroy();
 	this->wait();
 	qDebug() << "OmniThread is over\n";
 }

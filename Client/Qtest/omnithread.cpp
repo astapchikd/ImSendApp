@@ -40,7 +40,8 @@ OmniThread::OmniThread(const OmniThreadParams& params, QObject* parent) : QThrea
 
 OmniThread::~OmniThread() {
 	qDebug() << "OmniThread is over\n";
-	orb->destroy();
+	if (!CORBA::is_nil(orb))
+		orb->destroy();
 
 }
 void OmniThread::ShutdownServer() {
